@@ -9,6 +9,18 @@ namespace CursoCsharp
     internal class Funcionario
     {
         public string Nome;
-        public double Salario;
+        public double SalarioBruto;
+        public double Imposto;
+
+        public double SalarioLiquido()
+        {
+            double salario;
+            return salario = SalarioBruto - Imposto;
+        }
+
+        public void AumentarSalario(double porcentagem)
+        {
+            SalarioBruto += (porcentagem * SalarioBruto) / 100;
+        }
     }
 }
