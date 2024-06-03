@@ -7,34 +7,25 @@ namespace CursoCsharp
     {
         static void Main(string[] args)
         {
-            var F1 = new Funcionario();
+            var A1 = new Aluno();
+            Console.Write("Nome do aluno: ");
+            A1.Nome = Console.ReadLine();
+            Console.WriteLine("Digite as tres notas do aluno: ");
+            A1.Nota1 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            A1.Nota2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            A1.Nota3 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-            Console.Write("Nome: ");
-            F1.Nome = Console.ReadLine();
-            Console.Write("Salario Bruto: ");
-            F1.SalarioBruto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Console.Write("Imposto: ");
-            F1.Imposto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Console.WriteLine("");
-            Console.WriteLine("Funcionario: " + F1.Nome + ", Salario Liquido: $" + F1.SalarioLiquido().ToString("F2", CultureInfo.InvariantCulture));
-            Console.WriteLine("");
-            Console.Write("Digite o valor da porcentagem: ");
-            var porcentagem = double.Parse(Console.ReadLine());
-            F1.AumentarSalario(porcentagem);
-            Console.WriteLine("");
-            Console.WriteLine("Dados Atualizados: " + F1.Nome + ", Salario Liquido: $" + F1.SalarioLiquido().ToString("F2", CultureInfo.InvariantCulture));
-
-            //var R = new Retangulo();
-
-            //Console.WriteLine("Entre com os valores de altura e largura:");
-            //Console.Write("Largura: ");
-            //R.Largura = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            //Console.Write("Altura: ");
-            //R.Altura = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-            //Console.WriteLine("AREA: " + R.Area().ToString("F2", CultureInfo.InvariantCulture));
-            //Console.WriteLine("PERIMETRO: " + R.Perimentro().ToString("F2", CultureInfo.InvariantCulture));
-            //Console.WriteLine("DIAGONAL: " + R.Diagonal().ToString("F2", CultureInfo.InvariantCulture));
+            if (A1.NotaTotal() >= 60.00)
+            {
+                Console.WriteLine("APROVADO!");
+                Console.WriteLine("Nota final: " + A1.NotaTotal().ToString("F2", CultureInfo.InvariantCulture));
+            }
+            else
+            {
+                double pendencia = 60.00 - A1.NotaTotal();
+                Console.WriteLine("REPROVADO!");
+                Console.WriteLine("Faltaram: " + pendencia.ToString("F2", CultureInfo.InvariantCulture));
+            }
         }
     }
 }
