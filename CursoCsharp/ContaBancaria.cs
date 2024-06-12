@@ -7,29 +7,34 @@ namespace CursoCsharp
         public int Nconta { get; private set; }
         public double Saldo { get; private set; }
 
-        public ContaBancaria(int nconta, string nome)
+        public ContaBancaria(string nome, int nconta)
         {
-            Nconta = nconta;
             Nome = nome;
+            Nconta = nconta;
         }
 
-        public double Deposito(double V)
+        public ContaBancaria(string nome, int nconta, double saldo) : this(nome, nconta)
         {
-            return Saldo += V;
+            Saldo = saldo;
         }
-        
-        public double Saque(double V)
+
+        public void Deposito(double V)
         {
-            return Saldo -= V + 5;
+            Saldo += V;
+        }
+
+        public void Saque(double V)
+        {
+            Saldo -= V + 5;
         }
 
         public override string ToString()
         {
-            return "Conta " 
-                + Nconta 
-                + ", Titular: " 
-                + Nome 
-                + ", Saldo: $" 
+            return "Conta "
+                + Nconta
+                + ", Titular: "
+                + Nome
+                + ", Saldo: $"
                 + Saldo.ToString("F2", CultureInfo.InvariantCulture);
         }
     }

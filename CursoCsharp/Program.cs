@@ -1,48 +1,42 @@
-﻿using System.Globalization;
-
-namespace CursoCsharp
+﻿namespace CursoCsharp
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.Write("Informe o número da conta: ");
-            var conta = int.Parse(Console.ReadLine());
+            Console.Write("Quantos quartos serão alugados? ");
+            var NQ = int.Parse(Console.ReadLine());
 
-            Console.Write("Informe o nome do titular: ");
-            var nome = Console.ReadLine();
+            Pessoa[] Quartos = new Pessoa[10];
+            Pessoa pessoa;
 
-            var Titular = new ContaBancaria(conta, nome);
-
-            Console.Write("Hávera deposito inicial [S/N]? ");
-            var depositoInicial = Console.ReadLine();
-
-            double valorDeposito;
-
-            if (depositoInicial == "S")
+            for (int i = 0; i < NQ; i++)
             {
-                Console.Write("Informe o valor do deposito inicial: ");
-                valorDeposito = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                Titular.Deposito(valorDeposito);
+                Console.WriteLine("Aluguel #" + (i + 1) + ":");
+                Console.Write("Nome: ");
+                var nome = Console.ReadLine();
+                Console.Write("Email: ");
+                var email = Console.ReadLine();
+                Console.Write("Quarto (De 0 a 9): ");
+                var quarto = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+
+                pessoa = new Pessoa(nome, email, quarto);
+
+                Quartos[quarto] = pessoa;
             }
 
-            Console.WriteLine("");
-            Console.WriteLine("Dados da conta:");
-            Console.WriteLine(Titular.ToString());
-            Console.WriteLine("");
+            Console.WriteLine();
 
-            Console.Write("Entre um valor para deposito: ");
-            valorDeposito = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Titular.Deposito(valorDeposito);
-            Console.WriteLine("Dados atualizados: ");
-            Console.WriteLine(Titular.ToString());
-            Console.WriteLine("");
-
-            Console.Write("Entre um valor para saque: ");
-            var valorSaque = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Titular.Saque(valorSaque);
-            Console.WriteLine("Dados atualizados: ");
-            Console.WriteLine(Titular.ToString());
+            Console.WriteLine("Quartos alugados: ");
+            
+            for (int i = 0; i < 9; i++)
+            {
+                if (Quartos[i] != null)
+                {
+                    Console.WriteLine(Quartos[i].Quarto + ": " + Quartos[i].Nome + ", " + Quartos[i].Email);
+                }
+            }
         }
     }
 }
