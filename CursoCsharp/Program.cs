@@ -1,41 +1,61 @@
-﻿namespace CursoCsharp
+﻿using System.Globalization;
+using System.Collections.Generic;
+
+
+namespace CursoCsharp
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.Write("Quantos quartos serão alugados? ");
-            var NQ = int.Parse(Console.ReadLine());
+            Console.Write("Quantos funcionário serão cadastrados? ");
+            var NFun = int.Parse(Console.ReadLine());
 
-            Pessoa[] Quartos = new Pessoa[10];
-            Pessoa pessoa;
+            List<Funcionario> FunList = new List<Funcionario>();
+            var Fun = new Funcionario();
 
-            for (int i = 0; i < NQ; i++)
+            for (int i = 0; i < NFun; i++)
             {
-                Console.WriteLine("Aluguel #" + (i + 1) + ":");
+                Console.Write("Id: ");
+                var id = int.Parse(Console.ReadLine());
                 Console.Write("Nome: ");
                 var nome = Console.ReadLine();
-                Console.Write("Email: ");
-                var email = Console.ReadLine();
-                Console.Write("Quarto (De 0 a 9): ");
-                var quarto = int.Parse(Console.ReadLine());
+                Console.Write("Salario: ");
+                var salario = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                 Console.WriteLine();
 
-                pessoa = new Pessoa(nome, email, quarto);
+                Fun = new Funcionario(id, nome, salario);
 
-                Quartos[quarto] = pessoa;
+                FunList.Add(Fun);
             }
 
-            Console.WriteLine();
-
-            Console.WriteLine("Quartos alugados: ");
-            
-            for (int i = 0; i < Quartos.Length; i++)
+            Console.Write("Infome o Id do funcionário que receberá o aumento: ");
+            var idFunc = int.Parse(Console.ReadLine());
+            var count = 0;
+            foreach (var item in FunList)
             {
-                if (Quartos[i] != null)
+                if (item.Id == idFunc)
                 {
-                    Console.WriteLine(Quartos[i].Quarto + ": " + Quartos[i].Nome + ", " + Quartos[i].Email);
-                }
+                    count++;
+                }                
+            }
+
+            if (count >= 1)
+            {
+                Console.Write("Informe o valor da porcentagem: ");
+                var porcentagem = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                var fun = FunList.Find(f => f.Id == idFunc);
+                fun.AumentarSalario(porcentagem);
+            }
+            else
+            {
+                Console.WriteLine("Id invalido!");
+            }
+
+            Console.WriteLine("Lista de funcionários atualizada: ");
+            foreach (var item2 in FunList)
+            {
+                Console.WriteLine(item2.ToString());
             }
         }
     }
