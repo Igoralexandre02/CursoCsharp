@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 
 namespace CursoCsharp
@@ -33,20 +35,19 @@ namespace CursoCsharp
                 {
                     if (Pos == matriz[i, j])
                     {
-                        Console.WriteLine("Position: " + i + ", " + j);
-                        Console.WriteLine("Left: " + matriz[i,j-1]);
-                        Console.WriteLine("Rigth: " + matriz[i, j + 1]);
-                        Console.WriteLine("Down: " + matriz[i+1, j]);
-                        Console.WriteLine("Up: " + matriz[i-1,j]);
-                        Console.WriteLine();
+                        Console.WriteLine("Position " + i + "," + j + ":");
+                        if (j > 0)
+                            Console.WriteLine("Left: " + matriz[i, j - 1]);
+                        if (i > 0)
+                            Console.WriteLine("Up: " + matriz[i - 1, j]);
+                        if (j < n - 1)
+                            Console.WriteLine("Right: " + matriz[i, j + 1]);
+                        if (i < m - 1)
+                            Console.WriteLine("Down: " + matriz[i + 1, j]);
 
                     }
-
                 }
             }
-
-
-
         }
     }
 }
