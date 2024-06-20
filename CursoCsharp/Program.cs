@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace CursoCsharp
@@ -8,55 +9,44 @@ namespace CursoCsharp
     {
         static void Main(string[] args)
         {
-            Console.Write("Quantos funcionário serão cadastrados? ");
-            var NFun = int.Parse(Console.ReadLine());
+            Console.Write("Número de linhas: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("Número de colunas: ");
+            int m = int.Parse(Console.ReadLine());
 
-            List<Funcionario> FunList = new List<Funcionario>();
-            var Fun = new Funcionario();
+            int[,] matriz = new int[n, m];
 
-            for (int i = 0; i < NFun; i++)
+            for (int i = 0; i < n; i++)
             {
-                Console.Write("Id: ");
-                var id = int.Parse(Console.ReadLine());
-                Console.Write("Nome: ");
-                var nome = Console.ReadLine();
-                Console.Write("Salario: ");
-                var salario = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                Console.WriteLine();
-
-                Fun = new Funcionario(id, nome, salario);
-
-                FunList.Add(Fun);
-            }
-
-            Console.Write("Infome o Id do funcionário que receberá o aumento: ");
-            var idFunc = int.Parse(Console.ReadLine());
-            var count = 0;
-            foreach (var item in FunList)
-            {
-                if (item.Id == idFunc)
+                string[] vetor = Console.ReadLine().Split(' ');
+                for (int j = 0; j < m; j++)
                 {
-                    count++;
-                }                
+                    matriz[i, j] = int.Parse(vetor[j]);
+                }
             }
 
-            if (count >= 1)
+            int Pos = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < n; i++)
             {
-                Console.Write("Informe o valor da porcentagem: ");
-                var porcentagem = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                var fun = FunList.Find(f => f.Id == idFunc);
-                fun.AumentarSalario(porcentagem);
-            }
-            else
-            {
-                Console.WriteLine("Id invalido!");
+                for (int j = 0; j < m; j++)
+                {
+                    if (Pos == matriz[i, j])
+                    {
+                        Console.WriteLine("Position: " + i + ", " + j);
+                        Console.WriteLine("Left: " + matriz[i,j-1]);
+                        Console.WriteLine("Rigth: " + matriz[i, j + 1]);
+                        Console.WriteLine("Down: " + matriz[i+1, j]);
+                        Console.WriteLine("Up: " + matriz[i-1,j]);
+                        Console.WriteLine();
+
+                    }
+
+                }
             }
 
-            Console.WriteLine("Lista de funcionários atualizada: ");
-            foreach (var item2 in FunList)
-            {
-                Console.WriteLine(item2.ToString());
-            }
+
+
         }
     }
 }
