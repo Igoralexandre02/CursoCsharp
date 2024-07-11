@@ -21,10 +21,9 @@ namespace CursoCsharp.Entitys
         }
         public override string PriceTag()
         {
-            base.PriceTag();
             var Sb = new StringBuilder();
-            Sb.Append("(Customs Fee: $" + CustomsFee.ToString("F2", CultureInfo.InvariantCulture) + ")");
-
+            Sb.Append(Name + " $" + Price.ToString("F2", CultureInfo.InvariantCulture) + " (Customs Fee: $" + CustomsFee.ToString("F2", CultureInfo.InvariantCulture) + ")");
+            Sb.AppendLine();
             return Sb.ToString();
         }
     }

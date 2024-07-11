@@ -20,7 +20,8 @@ namespace CursoCsharp.Entitys
         public virtual string PriceTag()
         {
             var Sb = new StringBuilder();
-            Sb.Append(Name + "$" + Price.ToString("F2", CultureInfo.InvariantCulture)); 
+            Sb.Append(Name + " $" + Price.ToString("F2", CultureInfo.InvariantCulture));
+            Sb.AppendLine();
             return Sb.ToString();
         }
     }

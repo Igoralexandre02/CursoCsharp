@@ -19,7 +19,8 @@ namespace CursoCsharp.Entitys
         public override string PriceTag()
         {
             var Sb = new StringBuilder();
-            Sb.Append(Name + "(Used) $" + Price.ToString("F2", CultureInfo.InvariantCulture) + ManufactureDate);
+            Sb.Append(Name + " (Used) $" + Price.ToString("F2", CultureInfo.InvariantCulture) + " (Manufacture date: " + ManufactureDate.ToShortDateString() + ")");
+            Sb.AppendLine();
             return Sb.ToString();
         }
     }
