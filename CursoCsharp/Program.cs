@@ -1,6 +1,6 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using CursoCsharp.Entitys;
-
 
 namespace CursoCsharp
 {
@@ -8,48 +8,56 @@ namespace CursoCsharp
     {
         static void Main(string[] args)
         {
-            List<Product> Products = [];
+            List<Pessoa> pessoa = [];
+            
+            Console.Write("Enter the number of tax payers: ");
+            int N = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
-            Console.Write("Enter the number of products: ");
-            var Prod = int.Parse(Console.ReadLine());
-            char typeProd;
-            for (int i = 0; i < Prod; i++)
+            for (int i = 1; i <= N; i++)
             {
-                Console.WriteLine($"Product #{i + 1} data:");
-                Console.Write("Common, used or imported (c/u/i)? ");
-                typeProd = char.Parse(Console.ReadLine());
+                Console.WriteLine($"Tax payer #{i} data:");
+
+                Console.Write("Individual or company (i/c)? ");
+                var ch = char.Parse(Console.ReadLine());
+
                 Console.Write("Name: ");
-                var name = Console.ReadLine();
-                Console.Write("Price: ");
-                var price = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                switch (typeProd)
+                var nome = Console.ReadLine();
+
+                Console.Write("Anual income: ");
+                var rendaAnual = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                if (ch == 'i')
                 {
-                    case 'i':
-                        Console.Write("Customs fee: ");
-                        var customFee = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                        Products.Add(new ImportedProduct(name, price, customFee));
-                        break;
-                    case 'u':
-                        Console.Write("Manufacture date (DD/MM/YYYY): ");
-                        DateTime manufactureDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                        Products.Add(new UsedProduct(name, price, manufactureDate));
-                        break;
-                    case 'c':
-                        Products.Add(new Product(name, price));
-                        break;
-                    default:
-                        Console.WriteLine("Not is type !");
-                        break;
+                    Console.Write("Health expenditures: ");
+                    var saude = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    pessoa.Add(new Pfísica(nome, rendaAnual, saude));
                 }
+                else
+                {
+                    Console.Write("Number of employees: ");
+                    var numFuncionarios = int.Parse(Console.ReadLine());
+
+                    pessoa.Add(new Pjurídica(nome, rendaAnual, numFuncionarios));
+                }
+                Console.WriteLine();
             }
             Console.WriteLine();
-            foreach (Product product in Products)
+
+            Console.WriteLine("TAXES PAID: ");
+            foreach (Pessoa p in pessoa)
             {
-                if (product != null)
-                {
-                    Console.Write(product.PriceTag());
-                }
+                Console.WriteLine(p.Nome + ": $" + p.Imposto().ToString("F2", CultureInfo.InvariantCulture));
             }
+            Console.WriteLine();
+            
+            double sum = 0;
+            foreach (Pessoa p in pessoa)
+            {
+                sum += p.Imposto();
+            }
+            Console.WriteLine("TOTAL TAXES: $" + sum.ToString("F2", CultureInfo.InvariantCulture));
         }
     }
 }
