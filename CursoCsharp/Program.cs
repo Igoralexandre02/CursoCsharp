@@ -1,5 +1,6 @@
-﻿using CursoCsharp.Exceptions;
+﻿using System;
 using System.Globalization;
+using CursoCsharp.Entities;
 
 namespace CursoCsharp
 {
@@ -7,32 +8,19 @@ namespace CursoCsharp
     {
         static void Main(string[] args)
         {
-            try
-            {
-                Console.WriteLine("Enter account data");
-                Console.Write("Number: ");
-                var number = int.Parse(Console.ReadLine());
-                Console.Write("Holder: ");
-                var holder = Console.ReadLine();
-                Console.Write("Initial balance: ");
-                var balance = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                Console.Write("Withdraw limit: ");
-                var withdrawLimit = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                Console.WriteLine();
 
-                Account account = new Account(number, holder, balance, withdrawLimit);
+            Console.WriteLine("Enter contract data");
+            Console.Write("Number: ");
+            var number = int.Parse(Console.ReadLine());
+            Console.Write("Date (dd/MM/yyyy): ");
+            var date = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            Console.WriteLine("Contract value: ");
+            var totalValue = double.Parse(Console.ReadLine());
+            Console.Write("Enter number of installments: ");
+            var NI = int.Parse(Console.ReadLine());
 
-                Console.Write("Enter amount for withdraw: ");
-                var amount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                account.Withdraw(amount);
-                Console.WriteLine();
+            var contract = new Contract(number, date, totalValue);
 
-                Console.WriteLine("New Balance: " + account.Balance.ToString("F2", CultureInfo.InvariantCulture));
-            }
-            catch(AccountExcepiton a)
-            {
-                Console.WriteLine("Widhtdraw Erro: " + a.Message);
-            }           
         }
     }
 }
